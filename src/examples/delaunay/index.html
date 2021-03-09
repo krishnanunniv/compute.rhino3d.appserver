@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <!-- <link rel="icon" href="data:,"> -->
+        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+        <link rel="manifest" href="../favicon/site.webmanifest">
         <title>Delaunay triangulation</title>
         <style>
             body {
@@ -60,7 +63,6 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.m
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/controls/OrbitControls.js'
 import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.124.0/examples/jsm/loaders/3DMLoader.js'
 import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js'
-import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 
 // set up loader for converting the results to threejs
 const loader = new Rhino3dmLoader()
@@ -70,7 +72,7 @@ loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 const data = {
   definition: 'delaunay.gh',
   inputs: {
-    'points': [] // start with an empty list (corresponds to "RH_IN:points" input)
+    'points': [] // start with an empty list (corresponds to "points" input)
   }
 }
 
@@ -124,6 +126,7 @@ function init() {
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setPixelRatio( window.devicePixelRatio )
     renderer.setSize(window.innerWidth, window.innerHeight)
     document.body.appendChild(renderer.domElement)
 
@@ -182,6 +185,8 @@ async function compute() {
 function collectResults(responseJson) {
 
     const values = responseJson.values
+
+    console.log(values)
 
     // clear doc
     try {
@@ -285,7 +290,7 @@ function onClick( event ) {
   // add json-encoded Point3d to list
   // e.g. '{ "X": 1.0, "Y": 2.0, "Z": 0.0 }'
   const pt = "{\"X\":"+mouse.x+",\"Y\":"+mouse.y+",\"Z\":"+mouse.z+"}"
-  // in delaunay.gh the input is "RH_IN:points"
+  // in delaunay.gh the input is "points"
   data.inputs['points'].push(pt)
 
   // don't bother solving until we have three points
