@@ -46,7 +46,7 @@
                   <input type="range" id="RH_IN:Grid Spacing" min="0" max="30" value="15" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Step">RH_IN:Step</label>
+                  <label for="RH_IN:Step">Step</label>
                   <input type="range" id="RH_IN:Step" min="0" max="50" value="0" step="1">
                 </div>
                 <div>
@@ -132,8 +132,9 @@ function getInputs() {
         break
     }
   }
-  for(const input of document.getElementsByTagName('select')){
-  inputs[input.id] = input.value
+
+ for (const input of document.getElementsByTagName('select')) {
+     inputs[input.id] = input.value
   input.onchange = onSliderChange
 }
   return inputs
@@ -313,7 +314,7 @@ function onSliderChange () {
       break
     }
   }
-  for (const inputs of document.getElementsByTagName('select')) {
+  for (const input of document.getElementsByTagName('select')) {
     inputs[input.id] = input.value
   }
   data.inputs = inputs
