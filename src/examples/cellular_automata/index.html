@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="data:,">
-        <title>Cellular Automata 2D</title>
+        <title>2D Cellular Automata</title>
         <style>
             body {
                 margin: 0;
@@ -46,28 +46,20 @@
                   <input type="range" id="RH_IN:Grid Spacing" min="0" max="30" value="15" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Step">Step</label>
+                  <label for="RH_IN:Step">RH_IN:Step</label>
                   <input type="range" id="RH_IN:Step" min="0" max="50" value="0" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Toggle Rules">Display Constraints</label>
+                  <label for="RH_IN:Toggle Rules">Check to show intial Rules</label>
                   <input type="checkbox" id="RH_IN:Toggle Rules" >
                 </div>
                 <div>
-                  <label for="RH_IN:Display Mode">Display Mode</label>
-                  <select name="displayDropdown" id="RH_IN:Display Mode" >
-                    <option value="0">Grid View</option>
-                    <option value="1">Voronoi Pipes</option>
-                    </select>>
-
+                  <label for="RH_IN:Rule Filter">Rule Filter:No. of initial constriants for growth</label>
+                  <input type="range" id="RH_IN:Rule Filter" min="0" max="2" value="1" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Rule FiIter">Rule FiIter</label>
-                  <select name="RuleDropdown" id="RH_IN:Display Mode" >
-                    <option value="0">Single</option>
-                    <option value="1">Double</option>
-                    <option value="2">Triple</option>
-                    </select>>
+                  <label for="RH_IN:Display Mode">Display Mode: Switch between Grid and Vornoi Display</label>
+                  <input type="range" id="RH_IN:Display Mode" min="0" max="1" value="0" step="1">
                 </div>
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="cellular_automata.gh" download="cellular_automata.gh.html">Save source code</a></div>
@@ -132,14 +124,8 @@ function getInputs() {
         break
     }
   }
-
- for (const input of document.getElementsByTagName('select')) {
-     inputs[input.id] = input.value
-  input.onchange = onSliderChange
-}
   return inputs
 }
-
 
 // more globals
 let scene, camera, renderer, controls
@@ -314,9 +300,7 @@ function onSliderChange () {
       break
     }
   }
-  for (const input of document.getElementsByTagName('select')) {
-    inputs[input.id] = input.value
-  }
+  
   data.inputs = inputs
 
   compute()
