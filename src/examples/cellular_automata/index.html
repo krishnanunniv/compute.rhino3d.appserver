@@ -313,7 +313,9 @@ function onSliderChange () {
       break
     }
   }
-  
+  for (const inputs of document.getElementsByTagName('select')){
+    inputs[input.id] = input.value
+  }
   data.inputs = inputs
 
   compute()
