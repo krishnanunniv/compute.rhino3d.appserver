@@ -3,17 +3,24 @@
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="data:,">
-        <title>Urban_Jungle.gh</title>
+        <title>Urban_Jungle</title>
         <style>
             body {
-                margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
+                margin: 30;
+                font-family: monospace;
+                font-size:1rem;
+                background-color: rgb(68, 68, 68);
+                color:#ffffff;
+                
+                text-align: left;
+
+
             }
-            canvas { width: 100%; height: 100%; }
-            input[type=range] { width: 100%; }
+            canvas { width: 70%; height: 100%; }
+            input[type=range] { width: 20%; }
             #container { position: relative; }
             #container canvas, #overlay { position: absolute; }
-            #overlay { z-index: 1; width: 100%; }
+            #overlay { z-index: 1; width: 70%; }
             #overlay div { padding: 5px; }
             #loader {
                 border: 5px solid #f3f3f3; /* Light grey */
@@ -37,21 +44,23 @@
         <div id="loader"></div> 
         <div id="container">
             <div id="overlay">
+              <h1>Urban Jungle</h1>
+                
                 <div>
-                  <label for="RH_IN:Courtyard">RH_IN:Courtyard</label>
-                  <input type="range" id="RH_IN:Courtyard" min="0.1" max="1.1" value="0.8" step="1">
-                </div>
-                <div>
-                  <label for="RH_IN:Reduce blocks">RH_IN:Reduce blocks</label>
+                  <label for="RH_IN:Reduce blocks">Reduce blocks</label>
                   <input type="range" id="RH_IN:Reduce blocks" min="0" max="100" value="0" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Reduce Trees">RH_IN:Reduce Trees</label>
+                  <label for="RH_IN:Reduce Trees">Reduce Trees</label>
                   <input type="range" id="RH_IN:Reduce Trees" min="0" max="10" value="0" step="1">
                 </div>
                 <div>
-                  <label for="RH_IN:Randomize">RH_IN:Randomize</label>
+                  <label for="RH_IN:Randomize">Randomize</label>
                   <input type="range" id="RH_IN:Randomize" min="0" max="100" value="51" step="1">
+                </div>
+                <div>
+                  <label for="RH_IN:Courtyard">Courtyard</label>
+                  <input type="range" id="RH_IN:Courtyard" min="0.1" max="1.1" value="0.8" step="1">
                 </div>
                 <div><button id="downloadButton" disabled>Download</button></div>
                 <div><a href="Urban_Jungle.gh" download="Urban_Jungle.gh.html">Save source code</a></div>
@@ -134,10 +143,10 @@ function init() {
     scene = new THREE.Scene()
     scene.background = new THREE.Color(1, 1, 1)
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
-    camera.position.set(1, -1, 1) // like perspective view
+    camera.position.set(10, 0.35, 0.35) // like perspective view
 
     // very light grey for background, like rhino
-    scene.background = new THREE.Color('whitesmoke')
+    scene.background = new THREE.Color("rgb(68, 68, 68)")
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -155,6 +164,19 @@ function init() {
 
     const ambientLight = new THREE.AmbientLight()
     scene.add( ambientLight )
+
+       //Adding point lights
+       let light1 = new THREE.PointLight(0xFFFFFF,1,500)
+    light1.position.set(100,-100,100);
+    scene.add(light1);
+
+    let light = new THREE.PointLight(0xFFFFFF,1,500)
+    light.position.set(-100,-100,100);
+    scene.add(light);
+
+    let light3 = new THREE.PointLight(0xFFFFFF,1,500)
+    light.position.set(150,100,-100);
+    scene.add(light);
 
     // handle changes in the window size
     window.addEventListener( 'resize', onWindowResize, false )
